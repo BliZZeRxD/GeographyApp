@@ -11,6 +11,7 @@ class CountriesList: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
     var countries = [CountryResponse]()
+    var countriesByRegion: [String: [CountryResponse]] = [:]
 //    var getCountryProperty: CountryResponse?
     
 //    enum Region: Int {
@@ -21,18 +22,19 @@ class CountriesList: UIViewController {
 //        case europe = 53
 //        case oceania = 27
 //    }
-    var regions: [String] = [
-        "Africa", "Americas", "Antarctic", "Asia", "Europe", "Oceania"
-    ]
+    
 //    var countriesInAfrica = Region.africa
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let networkManager = NetworkManager()
         networkManager.downloadJSON { [weak self] countries in
             self?.countries = countries
+            self?.groupCountriesByRegion()
             self?.tableView.reloadData()
             print("Success")
         }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.estimatedRowHeight = 72
@@ -42,6 +44,15 @@ class CountriesList: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "expandableCell")
         tableView.separatorStyle = .none
     }
+    
+    private func groupCountriesByRegion() {
+        for country in countries {
+            let region = country.region
+            var countriesInRegion = countriesByRegion[region] ?? []
+            countriesInRegion.append(country)
+            countriesByRegion[region] = countriesInRegion
+        }
+    }
 }
 
 extension CountriesList: UITableViewDataSource{
@@ -49,7 +60,10 @@ extension CountriesList: UITableViewDataSource{
     //Ряды
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = (tableView.dequeueReusableCell(withIdentifier: "expandableCell") as? TableViewCell)!
-        let country = countries[indexPath.row]
+        let section = indexPath.section
+        let row = indexPath.row
+        let region = Array(countriesByRegion.values)[section]
+        let country = region[row]
         let imgURL = country.flags.png
         cell.countryFlag.downloaded(from: imgURL)
         cell.countryName.text = country.name.common
@@ -64,18 +78,24 @@ extension CountriesList: UITableViewDataSource{
     
     //Секции
     func numberOfSections(in tableView: UITableView) -> Int {
-        return regions.count
+        return countriesByRegion.keys.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return regions.first
+        return Array(countriesByRegion.keys)[section]
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        let region = Array(countriesByRegion.values)[section]
+        return region.count
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destionation = segue.destination as? CountryViewController{
-            destionation.country = countries[tableView.indexPathForSelectedRow!.row]
-        }
+        if let destionation = segue.destination as? CountryViewController,
+                   let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    let section = selectedIndexPath.section
+                    let row = selectedIndexPath.row
+                    let region = Array(countriesByRegion.values)[section]
+                    let country = region[row]
+                    destionation.country = country
+                    }
     }
 }
 
