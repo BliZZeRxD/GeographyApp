@@ -12,18 +12,19 @@ class CountriesList: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var countries = [CountryResponse]()
     var getCountryProperty: CountryResponse?
-//    enum Region: Int {
-//        case africa = 59
-//        case americas = 56
-//        case antarctic = 5
-//        case asia = 50
-//        case europe = 53
-//        case oceania = 27
-//    }
+    
+    var regionCounrtyNumbers: [String:Int] = [
+        "Asia": 50,
+        "Americas": 56,
+        "Antarctic": 5,
+        "Africa": 59,
+        "Europe": 53,
+        "Oceania": 27
+    ]
 //    var regions: [String] = [
-//        "Africa", "Americas", "Antarctic", "Asia", "Europe", "Oceania"
+//        "Asia", "Americas", "Antarctic", "Africa", "Europe", "Oceania"
 //    ]
-    var countriesInAfrica = Region.africa
+//    var countriesInAfrica = Region.africa
     override func viewDidLoad() {
         super.viewDidLoad()
         let networkManager = NetworkManager()
@@ -58,16 +59,14 @@ extension CountriesList: UITableViewDataSource{
     }
     
     //Секции
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return getCountryProperty?.region.count ?? 0
-    }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return
-    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return regionCounrtyNumbers.count
+//    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return regionCounrtyNumbers.keys = "Asia"
+//    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Region.RawValue{
-            case
-        }
+        return countries.count
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destionation = segue.destination as? CountryViewController{
