@@ -11,7 +11,8 @@ class CountriesList: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
     var countries = [CountryResponse]()
-    var getCountryProperty: CountryResponse?
+//    var getCountryProperty: CountryResponse?
+    
 //    enum Region: Int {
 //        case africa = 59
 //        case americas = 56
@@ -20,10 +21,10 @@ class CountriesList: UIViewController {
 //        case europe = 53
 //        case oceania = 27
 //    }
-//    var regions: [String] = [
-//        "Africa", "Americas", "Antarctic", "Asia", "Europe", "Oceania"
-//    ]
-    var countriesInAfrica = Region.africa
+    var regions: [String] = [
+        "Africa", "Americas", "Antarctic", "Asia", "Europe", "Oceania"
+    ]
+//    var countriesInAfrica = Region.africa
     override func viewDidLoad() {
         super.viewDidLoad()
         let networkManager = NetworkManager()
@@ -47,10 +48,14 @@ extension CountriesList: UITableViewDataSource{
     
     //Ряды
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        let cell = (tableView.dequeueReusableCell(withIdentifier: "expandableCell") as? TableViewCell)!
         let country = countries[indexPath.row]
-        cell.textLabel?.text = country.name.common
-        cell.detailTextLabel?.text = country.capital?.first
+        let imgURL = country.flags.png
+        cell.countryFlag.downloaded(from: imgURL)
+        cell.countryName.text = country.name.common
+        cell.capitalCity.text = country.capital?.description
+        cell.bottomArea.text = country.area.description
+        cell.bottomPopulation.text = country.population.description
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -59,15 +64,13 @@ extension CountriesList: UITableViewDataSource{
     
     //Секции
     func numberOfSections(in tableView: UITableView) -> Int {
-        return getCountryProperty?.region.count ?? 0
+        return regions.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return
+        return regions.first
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Region.RawValue{
-            case
-        }
+        return countries.count
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destionation = segue.destination as? CountryViewController{

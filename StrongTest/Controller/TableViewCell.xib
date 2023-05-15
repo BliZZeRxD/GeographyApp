@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="expandableCell" id="1gU-LI-GMv" customClass="TableViewCell" customModule="StrongTest" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="1gU-LI-GMv" customClass="TableViewCell" customModule="StrongTest" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="343" height="216"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1gU-LI-GMv" id="u5p-9z-cYp">
@@ -28,7 +28,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSc-bE-j58">
-                                        <rect key="frame" x="307" y="23" width="26" height="26"/>
+                                        <rect key="frame" x="302" y="23" width="26" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="xj3-xf-q0O"/>
                                         </constraints>
@@ -37,38 +37,33 @@
                                             <color key="baseForegroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="J2q-29-aEg">
-                                        <rect key="frame" x="106" y="17" width="189" height="39"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="countryName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k86-AZ-2bv">
-                                                <rect key="frame" x="0.0" y="0.0" width="189" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="capitalCity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-Gk-92E">
-                                                <rect key="frame" x="0.0" y="23.333333333333336" width="189" height="15.666666666666664"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="189" id="TYV-yH-0F2"/>
-                                        </constraints>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="countryName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k86-AZ-2bv">
+                                        <rect key="frame" x="106" y="17" width="184" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="capitalCity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdR-Gk-92E">
+                                        <rect key="frame" x="106" y="40.333333333333336" width="184" height="15.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="J2q-29-aEg" firstAttribute="leading" secondItem="WVn-9M-6CB" secondAttribute="trailing" constant="12" id="6n4-ub-l53"/>
+                                    <constraint firstItem="WdR-Gk-92E" firstAttribute="leading" secondItem="WVn-9M-6CB" secondAttribute="trailing" constant="12" id="4TA-LF-9O2"/>
                                     <constraint firstItem="gSc-bE-j58" firstAttribute="top" secondItem="4M7-4A-s24" secondAttribute="top" constant="23" id="7FZ-w0-4ln"/>
                                     <constraint firstAttribute="bottom" secondItem="gSc-bE-j58" secondAttribute="bottom" constant="23" id="BJA-vT-xcB"/>
-                                    <constraint firstItem="J2q-29-aEg" firstAttribute="top" secondItem="4M7-4A-s24" secondAttribute="top" constant="17" id="BP5-Yp-ofE"/>
-                                    <constraint firstItem="gSc-bE-j58" firstAttribute="leading" secondItem="J2q-29-aEg" secondAttribute="trailing" constant="12" id="JdH-la-fSJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="J2q-29-aEg" secondAttribute="bottom" constant="16" id="URg-qS-SEn"/>
+                                    <constraint firstItem="WdR-Gk-92E" firstAttribute="top" secondItem="k86-AZ-2bv" secondAttribute="bottom" constant="3" id="Jvl-Z1-SQm"/>
+                                    <constraint firstItem="k86-AZ-2bv" firstAttribute="top" secondItem="4M7-4A-s24" secondAttribute="top" constant="17" id="KFp-xk-2Ex"/>
+                                    <constraint firstAttribute="bottom" secondItem="WdR-Gk-92E" secondAttribute="bottom" constant="16" id="Mrm-Rg-Uwb"/>
+                                    <constraint firstItem="gSc-bE-j58" firstAttribute="leading" secondItem="WdR-Gk-92E" secondAttribute="trailing" constant="12" id="YQm-2E-NnU"/>
                                     <constraint firstAttribute="bottom" secondItem="WVn-9M-6CB" secondAttribute="bottom" constant="12" id="Zax-me-rNv"/>
+                                    <constraint firstItem="gSc-bE-j58" firstAttribute="leading" secondItem="k86-AZ-2bv" secondAttribute="trailing" constant="12" id="geD-gC-IeR"/>
                                     <constraint firstAttribute="trailing" secondItem="gSc-bE-j58" secondAttribute="trailing" constant="15" id="gzK-ks-ITX"/>
                                     <constraint firstItem="WVn-9M-6CB" firstAttribute="leading" secondItem="4M7-4A-s24" secondAttribute="leading" constant="12" id="jfh-7e-Ygs"/>
                                     <constraint firstItem="WVn-9M-6CB" firstAttribute="top" secondItem="4M7-4A-s24" secondAttribute="top" constant="12" id="mTr-T4-6dI"/>
+                                    <constraint firstItem="k86-AZ-2bv" firstAttribute="leading" secondItem="WVn-9M-6CB" secondAttribute="trailing" constant="12" id="oCE-Wc-eRg"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrU-Ak-yjT">
@@ -169,13 +164,13 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomArea" destination="7iO-76-gcL" id="9A2-GO-Il2"/>
-                <outlet property="bottomCurrencies" destination="eih-XM-hLs" id="aF4-bw-hig"/>
+                <outlet property="bottomCurrencies" destination="eih-XM-hLs" id="HEn-Jc-cHT"/>
                 <outlet property="bottomPopulation" destination="HMf-J3-zxf" id="niU-gS-aNA"/>
-                <outlet property="bottomView" destination="nrU-Ak-yjT" id="D5s-oF-Bra"/>
+                <outlet property="bottomView" destination="nrU-Ak-yjT" id="qcK-gy-I6u"/>
                 <outlet property="capitalCity" destination="WdR-Gk-92E" id="pS2-ez-h5F"/>
                 <outlet property="countryFlag" destination="WVn-9M-6CB" id="byc-bk-0rd"/>
                 <outlet property="countryName" destination="k86-AZ-2bv" id="Su1-JB-b66"/>
-                <outlet property="learnMore" destination="6is-8m-ZAd" id="xHP-C7-uWf"/>
+                <outlet property="learnMore" destination="6is-8m-ZAd" id="6Bo-jy-bSa"/>
             </connections>
             <point key="canvasLocation" x="26.717557251908396" y="-137.32394366197184"/>
         </tableViewCell>

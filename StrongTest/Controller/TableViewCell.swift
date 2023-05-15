@@ -18,7 +18,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var learnMore: UIButton!
     @IBOutlet weak var bottomView: UIView! {
         didSet {
-            bottomView.isHidden = true
+            bottomView.isHidden = false
         }
     }
     override class func awakeFromNib() {
