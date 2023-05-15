@@ -12,8 +12,6 @@ class CountriesList: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var countries = [CountryResponse]()
     var countriesByRegion: [String: [CountryResponse]] = [:]
-//    var getCountryProperty: CountryResponse?
-    
 //    enum Region: Int {
 //        case africa = 59
 //        case americas = 56
@@ -22,8 +20,6 @@ class CountriesList: UIViewController {
 //        case europe = 53
 //        case oceania = 27
 //    }
-    
-//    var countriesInAfrica = Region.africa
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,13 +85,13 @@ extension CountriesList: UITableViewDataSource{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destionation = segue.destination as? CountryViewController,
-                   let selectedIndexPath = tableView.indexPathForSelectedRow {
-                    let section = selectedIndexPath.section
-                    let row = selectedIndexPath.row
-                    let region = Array(countriesByRegion.values)[section]
-                    let country = region[row]
-                    destionation.country = country
-                    }
+            let selectedIndexPath = tableView.indexPathForSelectedRow {
+                let section = selectedIndexPath.section
+                let row = selectedIndexPath.row
+                let region = Array(countriesByRegion.values)[section]
+                let country = region[row]
+                destionation.country = country
+            }
     }
 }
 
