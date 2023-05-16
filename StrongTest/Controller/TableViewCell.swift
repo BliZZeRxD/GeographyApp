@@ -21,6 +21,14 @@ class TableViewCell: UITableViewCell {
             bottomView.isHidden = false
         }
     }
+    func configure(with country: CountryResponse) {
+           let imgURL = country.flags.png
+           countryFlag.downloaded(from: imgURL)
+           countryName.text = country.name.common
+           capitalCity.text = country.capital?.description
+           bottomArea.text = country.area.description
+           bottomPopulation.text = country.population.description
+    }
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
