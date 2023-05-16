@@ -15,17 +15,17 @@ struct CountryResponse: Codable{
     let area: Double
     let latlng: [Double]
     let flags: Flags
-    
 }
+
 struct Flags: Codable {
     let png: String
 }
+
 struct Name: Codable {
     let common: String
 }
 
 
-//let population: Int
 //let currencies: [String: [String: String]]
 //CapitalCoordinates Computable Variable
 //let latlng: [Float]
@@ -35,6 +35,4 @@ struct Name: Codable {
 //let currencies: String
 //Массив из String
 //let timeZones: String
-//Распарсить структуру
-//let flags: Struct
 
