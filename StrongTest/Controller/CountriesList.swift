@@ -11,40 +11,30 @@ class CountriesList: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
     var countries = [CountryResponse]()
-    var countriesByRegion: [String: [CountryResponse]] = [:]
-//    enum Region: Int {
-//        case africa = 59
-//        case americas = 56
-//        case antarctic = 5
-//        case asia = 50
-//        case europe = 53
-//        case oceania = 27
-//    }
-    
+    var countriesByRegion = [String: [CountryResponse]]()
+    var selectedIndexPath: IndexPath?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         loadData()
     }
-    
-    private func setupTableView(){
+
+    private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.estimatedRowHeight = 72
-        tableView.rowHeight = UITableView.automaticDimension
-        let nib = UINib(nibName: "TableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "expandableCell")
+        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "expandableCell")
         tableView.separatorStyle = .none
     }
-    private func loadData(){
-        let networkManager = NetworkManager()
-        networkManager.downloadJSON { [weak self] countries in
+
+    private func loadData() {
+        NetworkManager().downloadJSON { [weak self] countries in
             self?.countries = countries
             self?.groupCountriesByRegion()
             self?.tableView.reloadData()
-            print("Success")
         }
     }
+
     private func groupCountriesByRegion() {
         for country in countries {
             let region = country.region
@@ -53,54 +43,86 @@ class CountriesList: UIViewController {
             countriesByRegion[region] = countriesInRegion
         }
     }
+
+    @objc private func learnMoreButtonTapped(_ sender: UIButton) {
+        if let indexPath = tableView.indexPathForRow(at: sender.convert(.zero, to: tableView)) {
+            performSegue(withIdentifier: "showDetails", sender: indexPath)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? CountryViewController,
+           let indexPath = sender as? IndexPath {
+            let section = indexPath.section
+            let row = indexPath.row
+            let region = Array(countriesByRegion.values)[section]
+            let country = region[row]
+            destination.country = country
+        }
+    }
 }
 
-extension CountriesList: UITableViewDataSource{
+extension CountriesList: UITableViewDataSource {
     
-    //Ряды
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expandableCell",for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expandableCell", for: indexPath) as! TableViewCell
         let section = indexPath.section
         let row = indexPath.row
         let region = Array(countriesByRegion.values)[section]
         let country = region[row]
-        let imgURL = country.flags.png
         
-        cell.countryFlag.downloaded(from: imgURL)
+        cell.countryFlag.downloaded(from: country.flags.png)
         cell.countryName.text = country.name.common
         cell.capitalCity.text = country.capital?.description
-        cell.bottomArea.text = country.area.description
-        cell.bottomPopulation.text = country.population.description
         
+        cell.learnMore.tag = indexPath.row
+        cell.learnMore.addTarget(self, action: #selector(learnMoreButtonTapped(_:)), for: .touchUpInside)
+        
+        if let bottomView = cell.bottomView {
+            if bottomView.isHidden {
+                cell.bottomArea.text = country.area.description
+                cell.bottomPopulation.text = country.population.description
+                cell.bottomArea.isHidden = false
+                cell.bottomPopulation.isHidden = false
+            } else {
+                cell.bottomArea.isHidden = true
+                cell.bottomPopulation.isHidden = true
+            }
+        }
         return cell
     }
+
+}
+
+extension CountriesList: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetails", sender: indexPath)
+        if let cell = tableView.cellForRow(at: indexPath) as? TableViewCell {
+            cell.bottomView.isHidden.toggle()
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let baseHeight: CGFloat = 75.0
+        let additionalHeight: CGFloat = 141.0
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, selectedIndexPath == indexPath {
+            return baseHeight + additionalHeight
+        } else {
+            return baseHeight
+        }
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return countriesByRegion.count
     }
     
-    //Секции
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return countriesByRegion.keys.count
-    }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Array(countriesByRegion.keys)[section]
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let region = Array(countriesByRegion.values)[section]
         return region.count
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destionation = segue.destination as? CountryViewController,
-            let selectedIndexPath = tableView.indexPathForSelectedRow {
-                let section = selectedIndexPath.section
-                let row = selectedIndexPath.row
-                let region = Array(countriesByRegion.values)[section]
-                let country = region[row]
-                destionation.country = country
-            }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Array(countriesByRegion.keys)[section]
     }
-}
-
-extension CountriesList: UITableViewDelegate{
-    
 }
