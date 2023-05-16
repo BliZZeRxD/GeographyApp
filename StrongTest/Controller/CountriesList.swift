@@ -102,13 +102,11 @@ extension CountriesList: UITableViewDelegate{
             tableView.endUpdates()
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = indexPath.section
-        let row = indexPath.row
-        let region = Array(countriesByRegion.values)[section]
-        let baseHeight: CGFloat = 72.0
-        let additionalHeight: CGFloat = 144.0
+        let baseHeight: CGFloat = 75.0
+        let additionalHeight: CGFloat = 141.0
         
         if let selectedIndexPath = tableView.indexPathForSelectedRow, selectedIndexPath == indexPath {
             return baseHeight + additionalHeight
@@ -124,5 +122,7 @@ extension CountriesList: UITableViewDelegate{
         let region = Array(countriesByRegion.values)[section]
         return region.count
     }
-    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Array(countriesByRegion.keys)[section]
+    }
 }
