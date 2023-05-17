@@ -75,7 +75,7 @@ extension CountriesList: UITableViewDataSource {
         
         cell.countryFlag.downloaded(from: country.flags.png)
         cell.countryName.text = country.name.common
-        cell.capitalCity.text = country.capital?.description
+        cell.capitalCity.text = (country.capital ?? [])?.joined(separator: ", ") ?? ""
         
         cell.learnMore.tag = indexPath.row
         cell.learnMore.addTarget(self, action: #selector(learnMoreButtonTapped(_:)), for: .touchUpInside)

@@ -44,7 +44,7 @@ class CountryViewController: UIViewController {
         
         // MARK: - CountryPropertiesVariables
         regionLabel.text = country?.region
-        capitalLabel.text = country?.capital?.first
+        capitalLabel.text = country?.capital?.description
         populationLabel.text = country?.population.description
         capitalCoordinatesLabel.text = country?.latlng.description
         timeZoneLabel.text = country?.timezones.first

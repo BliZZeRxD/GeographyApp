@@ -26,6 +26,24 @@ struct Name: Codable {
     let common: String
 }
 
+func convertCoordinatesToDegrees(latlng: [Double]) -> (latitude: String, longitude: String)? {
+    guard latlng.count == 2 else {
+        return nil
+    }
+
+    let latitude = convertCoordinateToDegrees(latlng[0])
+    let longitude = convertCoordinateToDegrees(latlng[1])
+
+    return (latitude, longitude)
+}
+
+func convertCoordinateToDegrees(_ coordinate: Double) -> String {
+    let degrees = Int(coordinate)
+    let minutes = Int(abs((coordinate - Double(degrees)) * 60))
+
+    return String(format: "%d° %d'", degrees, minutes)
+}
+
 
 //let currencies: [String: [String: String]]
 //CapitalCoordinates Computable Variable

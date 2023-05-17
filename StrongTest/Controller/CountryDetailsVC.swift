@@ -10,7 +10,8 @@ import UIKit
 class CountryDetailsVC: UIViewController {
     
     @IBOutlet weak var detailsTableView: UITableView!
-    
+    var finalLatitude: String?
+    var finalLongitude: String?
     var country: CountryResponse?
     let countryProperties: [String] = [
         "Region:",
@@ -22,6 +23,7 @@ class CountryDetailsVC: UIViewController {
         "Timezones:"
     ]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = country?.name.common
@@ -30,6 +32,12 @@ class CountryDetailsVC: UIViewController {
         detailsTableView.delegate = self
         detailsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailsCell")
         view.addSubview(detailsTableView)
+        if let latlng = country?.latlng {
+            if let coordinates = convertCoordinatesToDegrees(latlng: latlng) {
+                finalLatitude = coordinates.latitude
+                finalLongitude = coordinates.longitude
+            }
+        }
     }
 }
 
@@ -56,18 +64,25 @@ extension CountryDetailsVC: UITableViewDataSource {
             valueLabel.lineBreakMode = .byWordWrapping
             
             switch indexPath.row {
+            //Region
             case 0:
                 valueLabel.text = country?.region
+            //Capital
             case 1:
-                valueLabel.text = country?.capital?.description
+                valueLabel.text = (country?.capital ?? [])?.joined(separator: ", ") ?? ""
+            //Coordinates
             case 2:
-                valueLabel.text = country?.latlng.description
+                valueLabel.text = "\(finalLatitude ?? "") , \(finalLongitude ?? "")"
+            //Population
             case 3:
                 valueLabel.text = "\(country?.population ?? 0)"
+            //Area
             case 4:
                 valueLabel.text = "\(country?.area ?? 0)"
+            //Currencies
             case 5:
                 valueLabel.text = ""
+            //Timezones
             case 6:
                 valueLabel.text = country?.timezones.joined(separator: ", ")
             default:
