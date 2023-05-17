@@ -1,7 +1,20 @@
 # GeographyApp
 
+Полностью рабочий AutoLayout как на Iphone, так и на IPad
 
-https://github.com/BliZZeRxD/GeographyApp/assets/40315034/514a1fb6-7369-4449-8c63-8e5467fd3317
+Iphone14 Simulator
+https://github.com/BliZZeRxD/GeographyApp/assets/40315034/3b580d9f-135c-491b-b471-1cce5d3619b2
 
-Iphone 14
-![Simulator Screenshot - iPhone 14 Pro - 2023-05-17 at 18 15 00](https://github.com/BliZZeRxD/GeographyApp/assets/40315034/8e88460f-b1e0-4dc9-82ed-c32b0b46b3d6)
+IPad Simulator
+https://github.com/BliZZeRxD/GeographyApp/assets/40315034/a04f5037-de6e-434d-bf9f-1c2f041eba03
+
+Используются Xib файлы
+<img width="562" alt="Снимок экрана 2023-05-17 в 18 27 50" src="https://github.com/BliZZeRxD/GeographyApp/assets/40315034/08a2bde0-63c7-44a8-925f-8a979d739c4c">
+
+Анимированное скрытие и расширение Cell в CountriesList(Продемонстрированно в видео)
+
+Использована архитектура MVC
+<img width="251" alt="Снимок экрана 2023-05-17 в 18 28 38" src="https://github.com/BliZZeRxD/GeographyApp/assets/40315034/7a70b857-3650-4ef1-bb75-cbce61a256a8">
+
+Код не крашится, фаталок во время теста не обнаруженно, используется только безопасное разворачивание опционалов
+
