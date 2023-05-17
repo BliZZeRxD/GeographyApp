@@ -10,21 +10,37 @@ import UIKit
 class CountriesList: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
+    
+// MARK: - Public Properties
     var countries = [CountryResponse]()
     var countriesByRegion = [String: [CountryResponse]]()
+    var country: CountryResponse?
     var selectedIndexPath: IndexPath?
+    var finalCurrencyName: String?
+    var finalCurrencyCode: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         loadData()
     }
-
+// MARK: - Functions
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "expandableCell")
         tableView.separatorStyle = .none
+//        if let currencyName = country?.currencies?.values.first {
+//            finalCurrencyName = currencyName.name ?? ""
+//        } else {
+//            finalCurrencyName = ""
+//        }
+//        if let currencyCode = country?.currencies?.keys.first{
+//            finalCurrencyCode = currencyCode
+//        }
+//        else{
+//            finalCurrencyCode = ""
+//        }
     }
 
     private func loadData() {
@@ -51,7 +67,7 @@ class CountriesList: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? CountryViewController,
+        if let destination = segue.destination as? CountryDetailsVC,
            let indexPath = sender as? IndexPath {
             let section = indexPath.section
             let row = indexPath.row
@@ -61,7 +77,7 @@ class CountriesList: UIViewController {
         }
     }
 }
-
+// MARK: - TableViewDataSource
 extension CountriesList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,7 +89,8 @@ extension CountriesList: UITableViewDataSource {
         
         cell.countryFlag.downloaded(from: country.flags.png)
         cell.countryName.text = country.name.common
-        cell.capitalCity.text = country.capital?.description
+        cell.capitalCity.text = (country.capital ?? [])?.joined(separator: ", ") ?? ""
+        cell.bottomCurrencies.text = "\(country.currencies?.values.first?.name ?? ""), \(country.currencies?.keys.first ?? "")"
         
         cell.learnMore.tag = indexPath.row
         cell.learnMore.addTarget(self, action: #selector(learnMoreButtonTapped(_:)), for: .touchUpInside)
@@ -93,6 +110,8 @@ extension CountriesList: UITableViewDataSource {
     }
 
 }
+
+// MARK: - TableViewDelegate
 
 extension CountriesList: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

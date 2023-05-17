@@ -9,7 +9,8 @@ import UIKit
 import CoreLocation
 
 class CountryViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var capitalLabel: UILabel!
     @IBOutlet weak var capitalCoordinatesLabel: UILabel!
@@ -26,7 +27,7 @@ class CountryViewController: UIViewController {
         
         self.title = country?.name.common
         
-        // Форматирование сырого значения Area в отображение с квадратными киллометрами
+        // MARK: - AreaFormater
         let areaValue = country?.area
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -37,14 +38,16 @@ class CountryViewController: UIViewController {
             areaLabel.text = result
         }
         
-        // Установка Флага
+        // MARK: - FlagConfiguration
         let imgURL = (country?.flags.png)!
         countryFlag.downloaded(from: imgURL)
         
+        // MARK: - CountryPropertiesVariables
         regionLabel.text = country?.region
-        capitalLabel.text = country?.capital?.first
+        capitalLabel.text = country?.capital?.description
         populationLabel.text = country?.population.description
         capitalCoordinatesLabel.text = country?.latlng.description
+        timeZoneLabel.text = country?.timezones.first
         
     }
 
