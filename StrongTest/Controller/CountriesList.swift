@@ -14,7 +14,10 @@ class CountriesList: UIViewController {
 // MARK: - Public Properties
     var countries = [CountryResponse]()
     var countriesByRegion = [String: [CountryResponse]]()
+    var country: CountryResponse?
     var selectedIndexPath: IndexPath?
+    var finalCurrencyName: String?
+    var finalCurrencyCode: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +30,17 @@ class CountriesList: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "expandableCell")
         tableView.separatorStyle = .none
+//        if let currencyName = country?.currencies?.values.first {
+//            finalCurrencyName = currencyName.name ?? ""
+//        } else {
+//            finalCurrencyName = ""
+//        }
+//        if let currencyCode = country?.currencies?.keys.first{
+//            finalCurrencyCode = currencyCode
+//        }
+//        else{
+//            finalCurrencyCode = ""
+//        }
     }
 
     private func loadData() {
@@ -76,6 +90,7 @@ extension CountriesList: UITableViewDataSource {
         cell.countryFlag.downloaded(from: country.flags.png)
         cell.countryName.text = country.name.common
         cell.capitalCity.text = (country.capital ?? [])?.joined(separator: ", ") ?? ""
+        cell.bottomCurrencies.text = "\(country.currencies?.values.first?.name ?? ""), \(country.currencies?.keys.first ?? "")"
         
         cell.learnMore.tag = indexPath.row
         cell.learnMore.addTarget(self, action: #selector(learnMoreButtonTapped(_:)), for: .touchUpInside)

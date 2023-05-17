@@ -16,6 +16,7 @@ struct CountryResponse: Codable{
     let latlng: [Double]
     let flags: Flags
     let timezones: [String]
+    let currencies: [String: Currency]?
 }
 
 struct Flags: Codable {
@@ -26,6 +27,10 @@ struct Name: Codable {
     let common: String
 }
 
+struct Currency: Codable {
+    let name: String?
+    let symbol: String?
+}
 func convertCoordinatesToDegrees(latlng: [Double]) -> (latitude: String, longitude: String)? {
     guard latlng.count == 2 else {
         return nil

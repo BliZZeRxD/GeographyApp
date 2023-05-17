@@ -12,6 +12,8 @@ class CountryDetailsVC: UIViewController {
     @IBOutlet weak var detailsTableView: UITableView!
     var finalLatitude: String?
     var finalLongitude: String?
+    var finalCurrencyName: String?
+    var finalCurrencyCode: String?
     var country: CountryResponse?
     let countryProperties: [String] = [
         "Region:",
@@ -37,6 +39,18 @@ class CountryDetailsVC: UIViewController {
                 finalLatitude = coordinates.latitude
                 finalLongitude = coordinates.longitude
             }
+        }
+        //Currency
+        if let currencyName = country?.currencies?.values.first {
+            finalCurrencyName = currencyName.name ?? ""
+        } else {
+            finalCurrencyName = ""
+        }
+        if let currencyCode = country?.currencies?.keys.first{
+            finalCurrencyCode = currencyCode
+        }
+        else{
+            finalCurrencyCode = ""
         }
     }
 }
@@ -81,7 +95,7 @@ extension CountryDetailsVC: UITableViewDataSource {
                 valueLabel.text = "\(country?.area ?? 0)"
             //Currencies
             case 5:
-                valueLabel.text = ""
+                valueLabel.text = "\(finalCurrencyName ?? ""), \(finalCurrencyCode ?? "")"
             //Timezones
             case 6:
                 valueLabel.text = country?.timezones.joined(separator: ", ")
