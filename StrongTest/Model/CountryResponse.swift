@@ -15,6 +15,7 @@ struct CountryResponse: Codable{
     let area: Double
     let latlng: [Double]
     let flags: Flags
+    let timezones: [String]
 }
 
 struct Flags: Codable {

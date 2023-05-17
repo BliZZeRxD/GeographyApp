@@ -10,6 +10,8 @@ import UIKit
 class CountriesList: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
+    
+// MARK: - Public Properties
     var countries = [CountryResponse]()
     var countriesByRegion = [String: [CountryResponse]]()
     var selectedIndexPath: IndexPath?
@@ -19,7 +21,7 @@ class CountriesList: UIViewController {
         setupTableView()
         loadData()
     }
-
+// MARK: - Functions
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -51,7 +53,7 @@ class CountriesList: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? CountryViewController,
+        if let destination = segue.destination as? CountryDetailsVC,
            let indexPath = sender as? IndexPath {
             let section = indexPath.section
             let row = indexPath.row
@@ -61,7 +63,7 @@ class CountriesList: UIViewController {
         }
     }
 }
-
+// MARK: - TableViewDataSource
 extension CountriesList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,6 +95,8 @@ extension CountriesList: UITableViewDataSource {
     }
 
 }
+
+// MARK: - TableViewDelegate
 
 extension CountriesList: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
